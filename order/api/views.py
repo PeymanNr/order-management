@@ -25,17 +25,16 @@ class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = OrderFilter
-    ordering_fields = ['price', 'created_at']
+    ordering_fields = ["price", "created_at"]
 
     def get_queryset(self):
         """
-            Return a queryset using a dynamic strategy
-            based on the current user's role.
-            """
+        Return a queryset using a dynamic strategy
+        based on the current user's role.
+        """
 
-        strategy=get_query_strategy(self.request.user)
+        strategy = get_query_strategy(self.request.user)
         return strategy.get_queryset(self.request.user)
-
 
     def get_object(self):
         """
@@ -45,11 +44,10 @@ class OrderViewSet(viewsets.ModelViewSet):
             PermissionDenied: If the user is not allowed to access the order.
         """
 
-        order = get_object_or_404(Order, pk=self.kwargs['pk'])
+        order = get_object_or_404(Order, pk=self.kwargs["pk"])
         user = self.request.user
         if not user.is_admin() and order.user != user:
-            raise PermissionDenied(
-                "You do not have permission to access this order.")
+            raise PermissionDenied("You do not have permission to access this order.")
         return order
 
     def perform_create(self, serializer):
@@ -70,6 +68,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         user = request.user
         if not user.is_admin() and obj.user != user:
             return Response(
-                {'detail': 'Only admins can delete orders they do not own.'},
-                status=status.HTTP_403_FORBIDDEN)
+                {"detail": "Only admins can delete orders they do not own."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
         return super().destroy(request, *args, **kwargs)
