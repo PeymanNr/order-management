@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
+
 
 User = get_user_model()
 
 class TimeStampedModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
 
