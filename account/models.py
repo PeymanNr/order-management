@@ -35,3 +35,6 @@ class User(AbstractUser):
 
     def is_customer(self):
         return self.role == self.Roles.CUSTOMER
+
+    def __str__(self):
+        return f'{self.username} ({self.role})'
