@@ -22,6 +22,11 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    """
+    Custom User model extending Django's AbstractUser.
+    Adds a 'role' field to support admin and customer roles.
+    """
+
     class Roles(models.TextChoices):
         ADMIN = "admin", "Admin"
         CUSTOMER = "customer", "Customer"
@@ -31,9 +36,13 @@ class User(AbstractUser):
     objects = CustomUserManager()
 
     def is_admin(self):
+        """Check if user is an admin."""
+
         return self.role == self.Roles.ADMIN
 
     def is_customer(self):
+        """Check if user is a customer."""
+
         return self.role == self.Roles.CUSTOMER
 
     def __str__(self):

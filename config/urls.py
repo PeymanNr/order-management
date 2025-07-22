@@ -28,7 +28,7 @@ from config import settings
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Energy Yar",
+        title="DashOrder",
         default_version='v1',
         description="API documentation for your project",
         terms_of_service="",
