@@ -30,7 +30,7 @@ user orders. It supports JWT authentication, role-based permissions (Admin and C
 
 ---
 
-## Setup & Run  
+## Setup & Run
 
 ### Prerequisites  
 - Docker & Docker Compose installed  
@@ -73,6 +73,10 @@ To run tests, use Django’s test command:
 ```bash
 docker-compose exec web pytest
 ```
+### Install dependencies without Docker:
+
+- pip install -r requirements.txt
+
 
 ### Project Structure Highlights
 **account** app: Custom user model and permissions
